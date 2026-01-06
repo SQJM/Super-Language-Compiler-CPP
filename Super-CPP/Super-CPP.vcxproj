@@ -138,9 +138,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(MSBuildProjectDirectory)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(MSBuildStartupDirectory)\env\icu4c-77_1-Win64-MSVC2022\bin64;$(MSBuildStartupDirectory)\env\icu4c-77_1-Win64-MSVC2022\lib64;$(FrameworkSdkDir)Lib\10.0.26100.0\ucrt\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\env\icu4c-77_1-Win64-MSVC2022\lib64;E:\env\icu4c-77_1-Win64-MSVC2022\bin64;$(FrameworkSdkDir)Lib\10.0.26100.0\ucrt\x64;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <ExternalIncludePath>$(MSBuildStartupDirectory)\env\icu4c-77_1-Win64-MSVC2022\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>E:\env\icu4c-77_1-Win64-MSVC2022\include;$(ExternalIncludePath)</ExternalIncludePath>
     <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
