@@ -1,3 +1,6 @@
 ICU
 https://github.com/unicode-org/icu/releases/
 下载: https://github.com/unicode-org/icu/releases/download/release-77-1/icu4c-77_1-Win32-MSVC2022.zip 解压到当前文件夹
+
+Boost Release 1.88.0
+https://www.boost.org/
