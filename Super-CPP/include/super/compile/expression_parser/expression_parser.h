@@ -1,48 +1,58 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
-#include <super/type/token.h>
-#include <super/type/expression_parser_type.h>
+#include <super/compile/core/token.h>
 #include <super/config.h>
 #include <unordered_map>
+#include <stack>
+#include <variant>
 
 namespace Super::Compile::ExpressionParser
 {
-	// Rule
-	std::unordered_map<std::wstring,std::wstring> Rule_OperationSymbol = {
-		MAP_DEF("+","add"),
-		MAP_DEF("-","subtract"),
-		MAP_DEF("*","multiply"),
-		MAP_DEF("/","division"),
-		MAP_DEF("&","bitwise_and"),
-		MAP_DEF("|","bitwise_or"),
-		MAP_DEF("^","bitwise_xor"),
-		MAP_DEF("<<","left_shift"),
-		MAP_DEF(">>","right_shift"),
-		MAP_DEF("=","assignment"),
-		MAP_DEF("+=","add_assignment")
+	enum class OperationSymbol
+	{
+		add,            // +
+		subtract,       // -
+		multiply,       // *
+		division,       // /
+		logical_not,    // !
+		bitwise_and,    // &
+		bitwise_or,     // |
+		bitwise_xor,    // ^
+		bitwise_not,    // ~
+		left_shift,     // <<
+		right_shift,    // >>
+		assignment,     // =
+		add_assignment, // +=
+		equal,          // ==
+		not_equal,      // !=
+		greater,        // >
+		less,           // <
+		greater_equal,  // >=
+		less_equal,     // <=
 	};
 
-	std::unordered_map<std::wstring, std::wstring> Rule_ComparisonOperatorSymbol = {
-		MAP_DEF("==","equal"),
-		MAP_DEF("!=","not_equal"),
-		MAP_DEF(">","greater"),
-		MAP_DEF("<","less"),
-		MAP_DEF(">=","greater_equal"),
-		MAP_DEF("<=","less_equal"),
-		MAP_DEF("&&","logical_and"),
-		MAP_DEF("||","logical_or")
+	enum class ComparisonOperatorSymbol
+	{
+		logical_and,    // &&
+		logical_or      // ||
 	};
 
 	class Parser
 	{
 	public:
-		Parser(const std::wstring& inputFilePath, std::vector<Super::Type::Token>& tokens);
+		Parser(const std::wstring& path, std::vector<Super::Compile::Core::Token>* tokens) :
+			_inputFilePath(path),
+			_tokens(tokens)
+		{
+		}
+
+		bool PreprocessingInstructionsLogicalCondition(const std::vector<size_t>& token_indexs);
+
 	private:
 		std::wstring _inputFilePath;
+		std::vector<Super::Compile::Core::Token>* _tokens;
 
-		Super::Type::ExpressionParser::Expression _expression;
-
-		void parserNextTarget(std::vector<Super::Type::Token>& tokens);
+		void parserNextTarget();
 	};
 }

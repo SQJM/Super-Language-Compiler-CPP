@@ -13,22 +13,23 @@
 #include <super/tool/log.h>
 #include <unicode/unistr.h>
 #include <super/tool/file.h>
-#include <super/compile/core/multi_file_compile.h>
-#include <super/compile/ADB/apple_data_base.h>
+#include <super/compile/process/multi_file_compile.h>
+#include <super/compile/CDB/compile_data_base.h>
 #include <super/error.h>
 #include <filesystem>
+#include <super/tool/console_style.hpp>
 
 static std::vector<std::wstring> ArgsToWString(int argc, char* argv[])
 {
-    std::vector<std::wstring> args;
-    for (int i = 1; i < argc; ++i)
-    {
-        icu::UnicodeString ustr = icu::UnicodeString::fromUTF8(argv[i]);
-        std::wstring warg(ustr.length(), L'\0');
-        ustr.extract(0, ustr.length(), &warg[0]);
-        args.push_back(warg);
-    }
-    return args;
+	std::vector<std::wstring> args;
+	for (int i = 1; i < argc; ++i)
+	{
+		icu::UnicodeString ustr = icu::UnicodeString::fromUTF8(argv[i]);
+		std::wstring warg(ustr.length(), L'\0');
+		ustr.extract(0, ustr.length(), &warg[0]);
+		args.push_back(warg);
+	}
+	return args;
 }
 
 static int CP_Info(const std::vector<std::wstring>& args, const std::map<std::wstring, std::wstring>& options)
@@ -49,7 +50,7 @@ static int CP_O(const std::vector<std::wstring>& args, const std::map<std::wstri
 		{
 			SUPER_ERROR_THROW_CODE_NONE(inputFile, L"100030");
 		}
-		outFileStream << Super::Compile::Core::MultiFileCompile(inputFile);
+		outFileStream << Super::Compile::Process::MultiFileCompile(inputFile);
 	}
 	outFileStream.close();
 	return 0;
@@ -57,15 +58,40 @@ static int CP_O(const std::vector<std::wstring>& args, const std::map<std::wstri
 
 int RETURN_RUN_CODE = -2;
 
+static void on_exit() noexcept
+{
+	std::wcout
+		<< L"\n"
+		<< Super::Tool::ConsoleStyle::fg::blue()
+		<< L"Super "
+		<< Super::Info::Version
+		<< Super::Tool::ConsoleStyle::reset()
+		<< std::endl;
+}
+
+static void ptime(const std::chrono::steady_clock::time_point& t0)
+{
+	auto t1 = std::chrono::steady_clock::now();
+	using namespace std::literals;
+	std::wcout << L"\n耗时 " << (t1 - t0) / 1ms << L" ms";
+}
+
 int main(int argc, char* argv[])
 {
+	auto t0 = std::chrono::steady_clock::now();
+	//--------------------------
+	
+	if (std::atexit(on_exit) != 0)
+	{
+		return 99;
+	}
 	std::locale::global(std::locale("chs"));
 	std::wcout.imbue(std::locale());
 
-	Super::Tool::Logger::Instance().SetLogLevel(Super::Tool::LogLevel::Debug);
-	Super::Tool::Logger::Instance().SetLogFile(L"super-build.log");
+	Super::Tool::Log::Logger::Instance().SetLogLevel(Super::Tool::Log::LogLevel::Norm);
+	Super::Tool::Log::Logger::Instance().SetLogFile(L"super-build");
 
-	Super::Compile::ADB::AppleDataBase::ADB_LIST::Init();
+	Super::Compile::CDB::CompileDataBase::CDB_LIST::Init();
 
 	std::vector<std::wstring> args = ArgsToWString(argc, argv);
 	std::vector<std::pair<std::wstring, std::type_index>> argvType =
@@ -83,7 +109,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		Super::Compile::Project::ProjectConfig.ProjectStorageType = 
-			static_cast<size_t>(Super::Compile::ADB::AppleDataBase::ADB_LIST::StorageType::File);
+			static_cast<size_t>(Super::Compile::CDB::CompileDataBase::CDB_LIST::StorageType::File);
 		CP_O({ L"out.o", L"C:\\Users\\sqjm\\Desktop\\Super-Language\\Compiler\\Super-CPP20-VS2026\\x64\\Debug\\test\\doc\\a.sp" }, {});
 		RETURN_RUN_CODE = cp.ExitCode();
 	}
@@ -92,7 +118,8 @@ int main(int argc, char* argv[])
 		std::wcerr << ex.what() << std::endl;
 	}
 
-	Super::Compile::ADB::AppleDataBase::ADB_LIST::Colse();
+	Super::Compile::CDB::CompileDataBase::CDB_LIST::Colse();
 
+	ptime(t0);
 	return RETURN_RUN_CODE;
 }

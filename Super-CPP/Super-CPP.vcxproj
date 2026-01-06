@@ -19,11 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\super\compile\ADB\encoding.h" />
-    <ClInclude Include="include\super\compile\core\multi_file_compile.h" />
-    <ClInclude Include="include\super\compile\data_processor\data_converter.h" />
-    <ClInclude Include="include\super\compile\data_processor\data_processor.h" />
-    <ClInclude Include="include\super\compile\data_processor\data_recognizer.h" />
+    <ClInclude Include="include\super\compile\CDB\encoding.h" />
+    <ClInclude Include="include\super\compile\process\multi_file_compile.h" />
     <ClInclude Include="include\super\compile\expression_parser\compile_depth_recognizer.h" />
     <ClInclude Include="include\super\compile\expression_parser\compile_time_operator.h" />
     <ClInclude Include="include\super\compile\expression_parser\arithmometer.h" />
@@ -31,65 +28,61 @@
     <ClInclude Include="include\super\compile\expression_parser\boolean_arithmetic_unit.h" />
     <ClInclude Include="include\super\compile\expression_parser\expression_parser.h" />
     <ClInclude Include="include\super\compile\expression_parser\target_recognizer.h" />
-    <ClInclude Include="include\super\compile\lexical_analysis\logical_end_matching.h" />
+    <ClInclude Include="include\super\compile\super_value_type.h" />
     <ClInclude Include="include\super\debug.h" />
     <ClInclude Include="include\super\compile\global_data.h" />
-    <ClInclude Include="include\super\compile\lexical_analysis\extract_token.h" />
-    <ClInclude Include="include\super\compile\lexical_analysis\parenthesis.h" />
-    <ClInclude Include="include\super\compile\lexical_analysis\processing_preprocessing.h" />
-    <ClInclude Include="include\super\compile\lexical_analysis\to_token_group.h" />
+    <ClInclude Include="include\super\compile\core\extract_token.h" />
+    <ClInclude Include="include\super\compile\core\symmetrical_matching.h" />
+    <ClInclude Include="include\super\compile\core\syntax_tree.h" />
     <ClInclude Include="include\super\compile\llvm\ir.h" />
-    <ClInclude Include="include\super\compile\remove_note.h" />
+    <ClInclude Include="include\super\compile\remove_comments.h" />
     <ClInclude Include="include\super\config.h" />
     <ClInclude Include="include\super\error.h" />
     <ClInclude Include="include\super\info.h" />
     <ClInclude Include="include\super\keyword.h" />
     <ClInclude Include="include\super\compile\project_config.h" />
     <ClInclude Include="include\super\tool\command_parsing.h" />
+    <ClInclude Include="include\super\tool\console.h" />
+    <ClInclude Include="include\super\tool\console_style.hpp" />
     <ClInclude Include="include\super\tool\file.h" />
     <ClInclude Include="include\super\tool\log.h" />
+    <ClInclude Include="include\super\tool\algorithm.h" />
+    <ClInclude Include="include\super\tool\pointer.hpp" />
     <ClInclude Include="include\super\tool\string.h" />
-    <ClInclude Include="include\super\type\ast.h" />
-    <ClInclude Include="include\super\type\expression_parser_type.h" />
-    <ClInclude Include="include\super\compile\ADB\apple_data_base.h" />
-    <ClInclude Include="include\super\type\token.h" />
-    <ClInclude Include="include\super\type\token_group.h" />
-    <ClInclude Include="include\super\type\token_grup_name.h" />
-    <ClInclude Include="include\super\type\token_name.h" />
-    <ClInclude Include="src\compile\data_processor\data_converter.cpp" />
-    <ClInclude Include="src\compile\data_processor\data_processor.cpp" />
-    <ClInclude Include="src\compile\data_processor\data_recognizer.cpp" />
+    <ClInclude Include="include\super\compile\CDB\compile_data_base.h" />
+    <ClInclude Include="include\super\compile\core\token.h" />
+    <ClInclude Include="include\super\tool\time.h" />
     <ClInclude Include="src\compile\expression_parser\arithmometer.cpp" />
     <ClInclude Include="src\compile\expression_parser\base_arithmetic_unit.cpp" />
     <ClInclude Include="src\compile\expression_parser\boolean_arithmetic_unit.cpp" />
     <ClInclude Include="src\compile\expression_parser\compile_depth_recognizer.cpp" />
     <ClInclude Include="src\compile\expression_parser\compile_time_operator.cpp" />
-    <ClInclude Include="src\compile\expression_parser\expression_parser.cpp" />
     <ClInclude Include="src\compile\expression_parser\target_recognizer.cpp" />
+    <ClInclude Include="src\tool\algorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\compile\ADB\apple_data_base.cpp" />
-    <ClCompile Include="src\compile\ADB\encoding.cpp" />
-    <ClCompile Include="src\compile\core\multi_file_compile.cpp" />
-    <ClCompile Include="src\compile\lexical_analysis\logical_end_matching.cpp" />
+    <ClCompile Include="src\compile\CDB\compile_data_base.cpp" />
+    <ClCompile Include="src\compile\CDB\encoding.cpp" />
+    <ClCompile Include="src\compile\expression_parser\expression_parser.cpp" />
+    <ClCompile Include="src\compile\process\multi_file_compile.cpp" />
     <ClCompile Include="src\compile\project_config.cpp" />
-    <ClCompile Include="src\compile\lexical_analysis\processing_preprocessing.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\compile\global_data.cpp" />
-    <ClCompile Include="src\compile\lexical_analysis\extract_token.cpp" />
-    <ClCompile Include="src\compile\lexical_analysis\parenthesis.cpp" />
-    <ClCompile Include="src\compile\lexical_analysis\to_token_ground.cpp" />
+    <ClCompile Include="src\compile\core\extract_token.cpp" />
+    <ClCompile Include="src\compile\core\symmetrical_matching.cpp" />
+    <ClCompile Include="src\compile\core\syntax_tree.cpp" />
     <ClCompile Include="src\compile\llvm\ir.cpp" />
-    <ClCompile Include="src\compile\remove_note.cpp" />
+    <ClCompile Include="src\compile\remove_comments.cpp" />
     <ClCompile Include="src\error.cpp" />
     <ClCompile Include="src\info.cpp" />
     <ClCompile Include="src\keyword.cpp" />
     <ClCompile Include="src\tool\command_parsing.cpp" />
+    <ClCompile Include="src\tool\console.cpp" />
     <ClCompile Include="src\tool\file.cpp" />
     <ClCompile Include="src\tool\log.cpp" />
     <ClCompile Include="src\tool\string.cpp" />
-    <ClCompile Include="src\type\ast.cpp" />
-    <ClCompile Include="src\type\token_name.cpp" />
+    <ClCompile Include="src\compile\core\token.cpp" />
+    <ClCompile Include="src\tool\time.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -184,13 +177,14 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(FrameworkSdkDir)Include\10.0.26100.0\ucrt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(FrameworkSdkDir)Include\10.0.26100.0\ucrt;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4267;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>icuin.lib;icuio.lib;icutest.lib;icutu.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\lib64-msvc-14.3;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

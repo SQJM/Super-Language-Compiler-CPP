@@ -1,10 +1,10 @@
 ﻿#include <super/tool/string.h>
-#include <super/type/token_name.h>
 #include <iomanip>
 #include <algorithm>
 #include <unicode/ucnv.h> 
 #include <unicode/unistr.h>
 #include <unicode/uchar.h>
+#include <super/tool/algorithm.h>
 
 namespace Super::Tool::String
 {
@@ -12,7 +12,10 @@ namespace Super::Tool::String
 	{
 		UErrorCode status = U_ZERO_ERROR;
 		UConverter* fromConv = ucnv_open(fromCode, &status);
-		if (U_FAILURE(status)) throw std::runtime_error("打开源编码失败");
+		if (U_FAILURE(status))
+		{
+			throw std::runtime_error("打开源编码失败");
+		}
 
 		UConverter* toConv = ucnv_open(toCode, &status);
 		if (U_FAILURE(status))
@@ -40,22 +43,21 @@ namespace Super::Tool::String
 		return std::string(outstr.data(), outlen);
 	}
 
-	std::wstring ListToStringWithLineNumbers(const std::vector<std::vector<wchar_t>>& lines)
+	void PrintLines(const std::vector<std::vector<wchar_t>>& lines)
 	{
 		size_t maxLineLength = std::to_wstring(lines.size()).length();
-		std::wstring result;
 		for (size_t i = 0; i < lines.size(); ++i)
 		{
 			if (i > 0)
 			{
-				result += L"\n";
+				std::wcout << L'\n';
 			}
-			result +=
-				std::wstring(maxLineLength - std::to_wstring(i + 1).length(), L' ')
-				+ std::to_wstring(i + 1) + L"│"
-				+ std::wstring(lines[i].begin(), lines[i].end());
+
+			std::wcout << std::wstring(maxLineLength - std::to_wstring(i + 1).length(), L' ')
+				<< std::to_wstring(i + 1) << L"│"
+				<< std::wstring(lines[i].begin(), lines[i].end());
 		}
-		return result;
+		std::wcout << std::endl;
 	}
 
 	std::wstring DictionaryStringToString(const std::unordered_map<std::wstring, std::wstring>& map)
@@ -73,21 +75,32 @@ namespace Super::Tool::String
 		return result;
 	}
 
-	std::wstring TokenToString(const std::vector<Super::Type::Token>& tokens)
+	std::wstring TokenToString(std::vector<Super::Compile::Core::Token>* tokens)
 	{
+		std::vector<std::wstring> nameCache;
+		nameCache.reserve(tokens->size());
 		int maxNameLength = 0;
-		for (const auto& item : tokens)
+		for (const auto& item : *tokens)
 		{
-			maxNameLength = std::max(maxNameLength, static_cast<int>(Super::Type::TokenNameToString(item.name).size()));
+			std::wstring name = Super::Compile::Core::TokenNameToString(item.name);
+			maxNameLength = std::max(maxNameLength, static_cast<int>(name.size()));
+			nameCache.emplace_back(std::move(name));
 		}
+
+		const int idxWidth = Algorithm::DigitLen(tokens->size());
 		std::wstring result;
-		for (const auto& item : tokens)
+		result.reserve(tokens->size() * 32); /* 粗略预分配，减少扩容 */
+
+		for (size_t i = 0; i < tokens->size(); ++i)
 		{
-			result +=
-				std::to_wstring(item.lc.line) + L":" + std::to_wstring(item.lc.column) + L"\t"
-				+ Super::Type::TokenNameToString(item.name)
-				+ std::wstring(maxNameLength - Super::Type::TokenNameToString(item.name).size(), L' ')
-				+ L"\t" + item.value + L"\n";
+			const auto& item = (*tokens)[i];
+			const auto& name = nameCache[i];
+			result += PaddingLeft(std::to_wstring(i), idxWidth)
+				+ L"│ "
+				+ std::to_wstring(item.ranks.line) + L':' + std::to_wstring(item.ranks.column) + L'\t'
+				+ name
+				+ std::wstring(maxNameLength - static_cast<int>(name.size()), L' ')
+				+ L'\t' + item.value + L'\n';
 		}
 		return result;
 	}
@@ -96,7 +109,7 @@ namespace Super::Tool::String
 	{
 		UChar32 uchar = static_cast<UChar32>(c);
 
-		return u_isWhitespace(uchar);
+		return u_isWhitespace(uchar) || c == L'\t' || c == L' ';
 	}
 
 	bool IsWhitespace(std::wstring str)
@@ -104,7 +117,7 @@ namespace Super::Tool::String
 		for (auto& c : str)
 		{
 			UChar32 uchar = static_cast<UChar32>(c);
-			if (u_isWhitespace(uchar))
+			if (u_isWhitespace(uchar) || c == L'\t' || c == L' ')
 			{
 				return false;
 			}
@@ -158,7 +171,10 @@ namespace Super::Tool::String
 
 	void ReplaceAll(std::wstring& str, const std::wstring& from, const std::wstring& to)
 	{
-		if (from.empty()) return;
+		if (from.empty())
+		{
+			return;
+		}
 		size_t start_pos = 0;
 		while ((start_pos = str.find(from, start_pos)) != std::wstring::npos)
 		{
@@ -167,27 +183,30 @@ namespace Super::Tool::String
 		}
 	}
 
-	std::wstring UnifyLineEndings(const std::wstring& fileData)
+	std::wstring_view UnifyLineEndingsView(std::wstring& src)
 	{
-		std::wstring unifiedFileData = fileData;
-
-		// 替换 \r\n 为 \n
-		size_t pos = 0;
-		while ((pos = unifiedFileData.find(L"\r\n", pos)) != std::wstring::npos)
+		size_t w = 0; // 写指针
+		for (size_t r = 0; r < src.size(); ++r)
 		{
-			unifiedFileData.replace(pos, 2, L"\n");
-			pos += 1; // 跳过新插入的 \n
+			wchar_t c = src[r];
+			if (c == L'\r')
+			{
+				src[w++] = L'\n';
+				if (r + 1 < src.size() && src[r + 1] == L'\n')
+					++r; // 跳过 \n
+			}
+			else
+			{
+				src[w++] = c;
+			}
 		}
-
-		// 替换单独的 \r 为 \n
-		std::replace(unifiedFileData.begin(), unifiedFileData.end(), L'\r', L'\n');
-
-		return unifiedFileData;
+		src.resize(w);
+		return std::wstring_view(src);
 	}
 
-	bool IsTailEqual(const std::wstring& str1, const std::wstring& str2, bool caseSensitive)
+	bool IsTailEqual(const std::wstring& str, const std::wstring& str2, bool caseSensitive)
 	{
-		if (str2.size() > str1.size())
+		if (str2.size() > str.size())
 		{
 			return false;
 		}
@@ -195,11 +214,11 @@ namespace Super::Tool::String
 		if (caseSensitive)
 		{
 			// 区分大小写
-			return str1.compare(str1.size() - str2.size(), str2.size(), str2) == 0;
+			return str.compare(str.size() - str2.size(), str2.size(), str2) == 0;
 		}
 		else
 		{
-			std::wstring str1Lower = str1;
+			std::wstring str1Lower = str;
 			std::wstring str2Lower = str2;
 
 			std::transform(str1Lower.begin(), str1Lower.end(), str1Lower.begin(), towlower);
@@ -212,7 +231,6 @@ namespace Super::Tool::String
 	bool BreakString(size_t i, std::wstring_view content, size_t& scope)
 	{
 		bool escape = false;
-		i++;
 		size_t content_size = content.size();
 		for (; i < content_size; i++)
 		{
@@ -225,7 +243,7 @@ namespace Super::Tool::String
 			}
 			else
 			{
-				if (c == L'"' || c == L'\'')
+				if (c == L'"' || c == L'\'' || (i >= content_size && c == L'\\'))
 				{
 					return false;
 				}
@@ -243,4 +261,60 @@ namespace Super::Tool::String
 		return false;
 	}
 
+	std::wstring RemoveWhitespace(const std::wstring& str)
+	{
+		std::wstring result;
+		for (auto& c : str)
+		{
+			if (!IsWhitespace(c))
+			{
+				result += c;
+			}
+		}
+		return result;
+	}
+
+	std::wstring RemoveWhitespaceFront(const std::wstring& str)
+	{
+		std::wstring result = L"";
+		bool is_add = false;
+		for (auto& c : str)
+		{
+			if (!IsWhitespace(c) && !is_add)
+			{
+				is_add = true;
+			}
+			if (is_add)
+			{
+				result += c;
+			}
+		}
+		return result;
+	}
+
+	std::wstring TabReplaceSpace(const std::wstring& str)
+	{
+		std::wstring result = L"";
+		for (auto& c : str)
+		{
+			if (c == L'\t')
+			{
+				result += L' ';
+			}
+			else
+			{
+				result += c;
+			}
+		}
+		return result;
+	}
+
+	std::wstring PaddingLeft(const std::wstring& src, std::size_t width)
+	{
+		std::wostringstream oss;
+		oss << std::setw(static_cast<int>(width))
+			<< std::setfill(L' ')
+			<< src;
+		return oss.str();
+	}
 }

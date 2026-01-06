@@ -4,12 +4,12 @@
 #include <fstream>
 #include <mutex>
 
-namespace Super::Tool
+namespace Super::Tool::Log
 {
 
 	enum class LogLevel
 	{
-		Trace, Debug, Info, Warning, Error, Fatal
+		Norm, Trace, Debug, Info, Warning, Error, Fatal
 	};
 
 	class Logger
@@ -53,5 +53,4 @@ namespace Super::Tool
 		LogLevel level;
 		std::wostringstream ss;
 	};
-
 }

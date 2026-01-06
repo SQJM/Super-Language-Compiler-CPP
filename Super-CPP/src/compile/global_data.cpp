@@ -7,12 +7,12 @@ namespace Super::Compile::GlobalData
 {
 	std::unordered_map<std::wstring, std::vector<std::vector<wchar_t>>> FileDataList;
 
-	std::vector<Super::Compile::ADB::AppleDataBase::SP*> SP_List;
-	std::vector<Super::Compile::ADB::AppleDataBase::SPH*> SPH_List;
-	std::vector<Super::Compile::ADB::AppleDataBase::SPM*> SPM_List;
-	std::vector<Super::Compile::ADB::AppleDataBase::SPD*> SPD_List;
+	std::vector<Super::Compile::CDB::CompileDataBase::SP*> SP_List;
+	std::vector<Super::Compile::CDB::CompileDataBase::SPH*> SPH_List;
+	std::vector<Super::Compile::CDB::CompileDataBase::SPM*> SPM_List;
+	std::vector<Super::Compile::CDB::CompileDataBase::SPD*> SPD_List;
 
-	Super::Compile::ADB::AppleDataBase::SP* GetSP(const std::wstring& file)
+	Super::Compile::CDB::CompileDataBase::SP* GetSP(const std::wstring& file)
 	{
 		for (auto* it : SP_List)
 		{
@@ -24,7 +24,7 @@ namespace Super::Compile::GlobalData
 		return nullptr;
 	}
 
-	Super::Compile::ADB::AppleDataBase::SPH* GetSPH(const std::wstring& file)
+	Super::Compile::CDB::CompileDataBase::SPH* GetSPH(const std::wstring& file)
 	{
 		for (auto* it : SPH_List)
 		{
@@ -36,7 +36,7 @@ namespace Super::Compile::GlobalData
 		return nullptr;
 	}
 
-	Super::Compile::ADB::AppleDataBase::SPM* GetSPM(const std::wstring& file)
+	Super::Compile::CDB::CompileDataBase::SPM* GetSPM(const std::wstring& file)
 	{
 		for (auto* it : SPM_List)
 		{
@@ -48,7 +48,7 @@ namespace Super::Compile::GlobalData
 		return nullptr;
 	}
 
-	Super::Compile::ADB::AppleDataBase::SPD* GetSPD(const std::wstring& file)
+	Super::Compile::CDB::CompileDataBase::SPD* GetSPD(const std::wstring& file)
 	{
 		for (auto* it : SPD_List)
 		{
