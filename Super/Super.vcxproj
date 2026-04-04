@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Module\Super\CompileDataBase.ixx" />
+    <ClCompile Include="Module\Super\Compile\Core.ixx" />
+    <ClCompile Include="Module\Super\Compile\ExpressionParser.ixx" />
+    <ClCompile Include="Module\Super\Compile\GlobalData.ixx" />
+    <ClCompile Include="Module\Super\Keyword.ixx" />
+    <ClCompile Include="Module\Super\Compile\Process.ixx" />
+    <ClCompile Include="Module\Super\Compile\ProjectConfig.ixx" />
+    <ClCompile Include="Module\Super\Compile\SuperValueType.ixx" />
+    <ClCompile Include="Module\Super\Config.ixx" />
+    <ClCompile Include="Module\Super\Error.ixx" />
+    <ClCompile Include="Module\Super\Info.ixx" />
+    <ClCompile Include="Module\Super\LLVM\Context.ixx" />
+    <ClCompile Include="Module\Super\Util\Algorithm.ixx" />
+    <ClCompile Include="Module\Super\Util\CommandParsing.ixx" />
+    <ClCompile Include="Module\Super\Util\ConsoleStyle.ixx" />
+    <ClCompile Include="Module\Super\Util\Encoding.ixx" />
+    <ClCompile Include="Module\Super\Util\File.ixx" />
+    <ClCompile Include="Module\Super\Util\Log.ixx" />
+    <ClCompile Include="Module\Super\Util\Pointer.ixx" />
+    <ClCompile Include="Module\Super\Util\ProjectDirManager.ixx" />
+    <ClCompile Include="Module\Super\Util\String.ixx" />
+    <ClCompile Include="Module\Super\Util\Time.ixx" />
+    <ClCompile Include="Module\Super\Util\Toml.ixx" />
+    <ClCompile Include="Source\CompileDataBase.cpp" />
+    <ClCompile Include="Source\Compile\Core.cpp" />
+    <ClCompile Include="Source\Compile\ExpressionParser.cpp" />
+    <ClCompile Include="Source\Compile\GlobalData.cpp" />
+    <ClCompile Include="Source\Compile\Process\Analyse.cpp" />
+    <ClCompile Include="Source\Compile\Process\MultiFileCompile.cpp" />
+    <ClCompile Include="Source\Compile\Process\Pretreatment\ExtractToken.cpp" />
+    <ClCompile Include="Source\Compile\Process\Pretreatment\Preprocessing.cpp" />
+    <ClCompile Include="Source\Compile\Process\LanguageServer\SymmetricalMatching.cpp" />
+    <ClCompile Include="Source\Compile\ProjectConfig.cpp" />
+    <ClCompile Include="Source\Compile\SyntaxTree.cpp" />
+    <ClCompile Include="Source\Error.cpp" />
+    <ClCompile Include="Source\Util\Algorithm.cpp" />
+    <ClCompile Include="Source\Util\CommandParsing.cpp" />
+    <ClCompile Include="Source\Util\Encoding.cpp" />
+    <ClCompile Include="Source\Util\File.cpp" />
+    <ClCompile Include="Source\Util\Log.cpp" />
+    <ClCompile Include="Source\Util\ProjectDirManager.cpp" />
+    <ClCompile Include="Source\Util\String.cpp" />
+    <ClCompile Include="Source\Util\Time.cpp" />
+    <ClCompile Include="Source\Util\Toml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Compile\ExpressionGrammar.hpp" />
+    <ClInclude Include="Source\Compile\Process\Pretreatment\PreprocessingExpressionParser.hpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4985825e-cb9d-404a-aef3-58f6c299b5b2}</ProjectGuid>
+    <RootNamespace>Super</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(MSBuildProjectDirectory)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\env\icu4c-77_1-Win64-MSVC2022\lib64;E:\env\icu4c-77_1-Win64-MSVC2022\bin64;$(FrameworkSdkDir)Lib\10.0.26100.0\ucrt\x64;$(LibraryPath)</LibraryPath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <ExternalIncludePath>E:\env\icu4c-77_1-Win64-MSVC2022\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
+    <AdditionalOptions>%(AdditionalOptions) /FS</AdditionalOptions>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>E:\Git\PEGTL-main\include;$(FrameworkSdkDir)Include\10.0.26100.0\ucrt;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4267;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <BuildStlModules>false</BuildStlModules>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>icuin.lib;icuio.lib;icutest.lib;icutu.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\lib64-msvc-14.3;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

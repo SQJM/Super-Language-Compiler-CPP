@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Module\Super\CompileDataBase.ixx" />
+    <ClCompile Include="Module\Super\Compile\Core.ixx" />
+    <ClCompile Include="Module\Super\Compile\ExpressionParser.ixx" />
+    <ClCompile Include="Module\Super\Compile\GlobalData.ixx" />
+    <ClCompile Include="Module\Super\Keyword.ixx" />
+    <ClCompile Include="Module\Super\Compile\Process.ixx" />
+    <ClCompile Include="Module\Super\Compile\ProjectConfig.ixx" />
+    <ClCompile Include="Module\Super\Compile\SuperValueType.ixx" />
+    <ClCompile Include="Module\Super\Config.ixx" />
+    <ClCompile Include="Module\Super\Error.ixx" />
+    <ClCompile Include="Module\Super\Info.ixx" />
+    <ClCompile Include="Module\Super\Util\Algorithm.ixx" />
+    <ClCompile Include="Module\Super\Util\CommandParsing.ixx" />
+    <ClCompile Include="Module\Super\Util\ConsoleStyle.ixx" />
+    <ClCompile Include="Module\Super\Util\Encoding.ixx" />
+    <ClCompile Include="Module\Super\Util\File.ixx" />
+    <ClCompile Include="Module\Super\Util\Log.ixx" />
+    <ClCompile Include="Module\Super\Util\Pointer.ixx" />
+    <ClCompile Include="Module\Super\Util\String.ixx" />
+    <ClCompile Include="Module\Super\Util\Time.ixx" />
+    <ClCompile Include="Module\Super\Util\Toml.ixx" />
+    <ClCompile Include="Source\CompileDataBase.cpp" />
+    <ClCompile Include="Source\Compile\Core.cpp" />
+    <ClCompile Include="Source\Compile\ExpressionParser.cpp" />
+    <ClCompile Include="Source\Compile\GlobalData.cpp" />
+    <ClCompile Include="Source\Compile\Process\Analyse.cpp" />
+    <ClCompile Include="Source\Compile\Process\MultiFileCompile.cpp" />
+    <ClCompile Include="Source\Compile\Process\Pretreatment\ExtractToken.cpp" />
+    <ClCompile Include="Source\Compile\Process\Pretreatment\Preprocessing.cpp" />
+    <ClCompile Include="Source\Compile\Process\LanguageServer\SymmetricalMatching.cpp" />
+    <ClCompile Include="Source\Compile\ProjectConfig.cpp" />
+    <ClCompile Include="Source\Compile\SyntaxTree.cpp" />
+    <ClCompile Include="Source\Error.cpp" />
+    <ClCompile Include="Source\Util\Algorithm.cpp" />
+    <ClCompile Include="Source\Util\CommandParsing.cpp" />
+    <ClCompile Include="Source\Util\Encoding.cpp" />
+    <ClCompile Include="Source\Util\File.cpp" />
+    <ClCompile Include="Source\Util\Log.cpp" />
+    <ClCompile Include="Source\Util\String.cpp" />
+    <ClCompile Include="Source\Util\Time.cpp" />
+    <ClCompile Include="Source\Util\Toml.cpp" />
+    <ClCompile Include="Module\Super\Util\ProjectDirManager.ixx" />
+    <ClCompile Include="Source\Util\ProjectDirManager.cpp" />
+    <ClCompile Include="Module\Super\LLVM\Context.ixx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Compile\ExpressionGrammar.hpp" />
+    <ClInclude Include="Source\Compile\Process\Pretreatment\PreprocessingExpressionParser.hpp" />
+  </ItemGroup>
+</Project>
